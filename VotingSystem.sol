@@ -2,13 +2,13 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract Ballot {
-   
+contract VotingSystem {
+
     struct Voter {
         uint weight; 
         bool voted;  
-        address delegate; 
-        uint vote;   
+        //address delegate; 
+        string candidate_name;   
     }
 
     struct Proposal {
@@ -17,10 +17,9 @@ contract Ballot {
     }
 
     address public chairperson;
-
-    mapping(address => Voter) public voters;
-
-    Proposal[] public proposals;
+    mapping(address => Voter) internal voters;
+    Proposal[] internal proposals;
+    mapping(string => uint) internal candidate_index;
 
     constructor(string[] memory proposalNames) {
         chairperson = msg.sender;
@@ -31,9 +30,12 @@ contract Ballot {
                 name: proposalNames[i],
                 voteCount: 0
             }));
+            candidate_index[proposalNames[i]] = i;
         }
     }
+
     function giveRightToVote(address voter) public {
+        require(voter != chairperson, "Chairperson cannot give right to himself");
         require(
             msg.sender == chairperson,
             "Only chairperson can give right to vote."
@@ -45,34 +47,18 @@ contract Ballot {
         require(voters[voter].weight == 0);
         voters[voter].weight = 1;
     }
-    function delegate(address to) public {
-        Voter storage sender = voters[msg.sender];
-        require(!sender.voted, "You already voted.");
-        require(to != msg.sender, "Self-delegation is disallowed.");
 
-        while (voters[to].delegate != address(0)) {
-            to = voters[to].delegate;
-            require(to != msg.sender, "Found loop in delegation.");
-        }
-        sender.voted = true;
-        sender.delegate = to;
-        Voter storage delegate_ = voters[to];
-        if (delegate_.voted) {
-            proposals[delegate_.vote].voteCount += sender.weight;
-        } else {
-            delegate_.weight += sender.weight;
-        }
-    }
-
-    function vote(uint proposal) public {
+    function vote(string memory proposal_name) public {
+        require(msg.sender != chairperson,"Owner cannot vote");
         Voter storage sender = voters[msg.sender];
         require(sender.weight != 0, "Has no right to vote");
         require(!sender.voted, "Already voted.");
         sender.voted = true;
-        sender.vote = proposal;
-        proposals[proposal].voteCount += sender.weight;
+        sender.candidate_name = proposal_name;
+        proposals[candidate_index[proposal_name]].voteCount += sender.weight;
     }
-    function winningProposal() public view
+
+    function winningProposal() internal view
             returns (uint winningProposal_)
     {
         uint winningVoteCount = 0;
@@ -86,7 +72,16 @@ contract Ballot {
 
     function winnerName() public view
             returns (string memory winnerName_)
-    {
-        winnerName_ = proposals[winningProposal()].name;
+    {   int winner = -1;
+        uint k = proposals[0].voteCount;
+        for (uint p = 1; p < proposals.length; p++) {
+            if(k!=  proposals[p].voteCount){
+                winner = int(winningProposal());
+                break;
+            }
+        }
+        require(winner != -1,"voting not started yet");
+        winnerName_ =  proposals[uint(winner)].name;
+        return winnerName_;
     }
 }
