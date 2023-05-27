@@ -122,10 +122,16 @@ npm start
 
 ## Authors
 
+I would like to thank to my team and supervisor for this successfully project completion.
+
+Team Member:
 - [@Nitin Diwakar](https://github.com/Nitin-Diwakar)
 - [@Satyam Bajpai](https://github.com/Satyam-bajpai007)
 - [@Tushar Dixit](https://github.com/TusharDixit-301)
 - [@Shubham Gaur](https://github.com/ShubhamGaur-277)
+
+Supervisor:
+- Dr. Raghuraj Singh Suryavanshi(Professor & Head Emerging CS)
 
 ## Contributing
 
