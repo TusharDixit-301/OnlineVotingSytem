@@ -1,0 +1,33 @@
+.login-layout-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 100px;
+  padding-right: 100px;
+  height: 100vh;
+  background-color: rgb(40, 255, 205);
+  background-image: linear-gradient(to bottom right, rgba(40, 255, 205, 0.273), rgba(1, 98, 196, 0.832));
+
+  .left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .title-green {
+      color: $theme-primary;
+    }
+  }
+
+
+  .Loginlogo {
+    height: 100px;
+    width: 100px;
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // background-color: transparent;
+  }
+}
