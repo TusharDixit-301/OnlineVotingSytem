@@ -60,6 +60,7 @@ To set up and run the Online Voting System using Blockchain, ensure you have the
 - Ganache:  v7.8.0
 - Solidity: v0.5.16 (solc-js)
 - Visual Studio Code: v1.77.3
+- Mysql:  8.0.33-0ubuntu0.22.04.2 (Ubuntu)
 
 - Ganache (Ethereum-compatible blockchain network)
  
