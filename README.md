@@ -51,8 +51,16 @@ The key features of the Online Voting System using Blockchain include:
 
 To set up and run the Online Voting System using Blockchain, ensure you have the following dependencies installed:
 
-- Node.js (version 12 or higher)
+- Operating System: Ubuntu 22.04.2 LTS (Important)
+- React.js: v17.0.2
+- Node.js:  v18.16.0
 - npm (Node Package Manager)
+- Web3.js:  v1.8.2
+- Truffle:  v5.8.4 (core: 5.8.4)
+- Ganache:  v7.8.0
+- Solidity: v0.5.16 (solc-js)
+- Visual Studio Code: v1.77.3
+
 - Ganache (Ethereum-compatible blockchain network)
  
 ## Installation
